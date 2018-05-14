@@ -1,0 +1,2 @@
+# deep_learning_layer_calculator
+This project is intended to be a deep learning layer calculator. This will be used in the auto-encoding state representations from raw lidar data for multi-agent reinforcement learners project. The user will specify, at a minimum, the input and output data dimensions they wish to have upon completion, as well as the desired layer architecture. The program will then calculate the dimensions of the intermediary layers (possibly with a semi-brute force search), create and save a PyTorch model of the neural network.
