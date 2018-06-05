@@ -10,9 +10,12 @@ import csv
 
 
 def import_all(filename):
-    """
-    currently not robust to missing arguments because I got annoyed with it
-    """
+    """ Imports file contents from user with parameters from nueral net and later calculations
+        currently not robust to missing or incorrect arguments from file
+        currently does not convert values to int; done in later functions
+        inputs: filename - name of input file, currently as inputs.csv
+        output: file_list - list of parameters specified by user"""
+        
     with open(filename,'r') as file:
         file_read = csv.reader(file)
         file_list = []
@@ -20,15 +23,15 @@ def import_all(filename):
         for line in file_read:
             file_list.append(line)
 
-    #print file_list
     print "Imported file: " + str(filename)
     return file_list
     
     
 def calculate_output_sizes_encoder(param_list):
-    """
-    
-    """
+    """ Calculates output sizes for each encoding layer based on user given parameters
+        inputs: param_list - values from file given by user
+        output: encoder_sizes_list - calculated sizes for encoder layers
+                encoder_maxpool1d_output_size_layer_six - calculated size for final encoder layer"""
     
     encoder_conv1d_output_size_layer_one = 1 + ((int(param_list[2][1]) + (2 * int(param_list[2][2])) - (int(param_list[2][3]) * (int(param_list[2][4]) - 1)) - 1) / (int(param_list[2][5])))
     encoder_maxpool1d_output_size_layer_two = 1 + ((encoder_conv1d_output_size_layer_one + (2 * int(param_list[3][2])) - (int(param_list[3][3]) * (int(param_list[3][4]) - 1)) - 1) / (int(param_list[3][5])))
@@ -43,9 +46,10 @@ def calculate_output_sizes_encoder(param_list):
     
     
 def calculate_output_sizes_decoder(param_list, encode_final_layer_size):
-    """
-    
-    """
+    """ Calculates output sizes for each decoding layer based on user given parameters
+        inputs: param_list - values from file given by user
+                encode_final_layer_size - calculated size for final encoder layer
+        output: decoder_sizes_list - calculated sizes for decoder layers"""
     
     decoder_convtrans1d_output_size_layer_one = ((encode_final_layer_size - 1) * int(param_list[9][5])) - (2 * int(param_list[9][2])) + int(param_list[9][4]) + int(param_list[9][6])
     decoder_convtrans1d_output_size_layer_two = ((decoder_convtrans1d_output_size_layer_one - 1) * int(param_list[10][5])) - (2 * int(param_list[10][2])) + int(param_list[10][4]) + int(param_list[10][6])
@@ -56,10 +60,6 @@ def calculate_output_sizes_decoder(param_list, encode_final_layer_size):
     return decoder_sizes_list
     
     
-#if __name__== "__main__":
-#    parameter_list = import_all('inputs.csv')
-#    calculate_output_sizes_encoder(parameter_list)
-#    calculate_output_sizes_decoder(parameter_list)
     
     
     
