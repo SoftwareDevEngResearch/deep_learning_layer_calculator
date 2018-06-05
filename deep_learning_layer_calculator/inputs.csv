@@ -10,6 +10,3 @@ Decoder ,,,,,,,
 ConvTrans1d,8,0,0,5,5,0,40
 ConvTrans1d,40,1,1,5,3,0,120
 ConvTrans1d,120,1,1,5,3,0,360
-ConvTrans1d,120,0,0,0,0,0,0
-maxUnpool,0,0,0,0,0,0,0
-ConvTrans1d,0,0,0,0,0,0,0

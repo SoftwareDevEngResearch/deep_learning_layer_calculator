@@ -50,11 +50,8 @@ def calculate_output_sizes_decoder(param_list, encode_final_layer_size):
     decoder_convtrans1d_output_size_layer_one = ((encode_final_layer_size - 1) * int(param_list[9][5])) - (2 * int(param_list[9][2])) + int(param_list[9][4]) + int(param_list[9][6])
     decoder_convtrans1d_output_size_layer_two = ((decoder_convtrans1d_output_size_layer_one - 1) * int(param_list[10][5])) - (2 * int(param_list[10][2])) + int(param_list[10][4]) + int(param_list[10][6])
     decoder_convtrans1d_output_size_layer_three = ((decoder_convtrans1d_output_size_layer_two - 1) * int(param_list[11][5])) - (2 * int(param_list[11][2])) + int(param_list[11][4]) + int(param_list[11][6])
-    decoder_convtrans1d_output_size_layer_four = ((decoder_convtrans1d_output_size_layer_three - 1) * int(param_list[12][5])) - (2 * int(param_list[12][2])) + int(param_list[12][4]) + int(param_list[12][6])
-    decoder_maxunpool_output_size_layer_five = ((decoder_convtrans1d_output_size_layer_four - 1) * int(param_list[13][5])) - (2 * int(param_list[13][2])) + int(param_list[13][4]) + int(param_list[13][6])
-    decoder_convtrans1d_output_size_layer_six = ((decoder_maxunpool_output_size_layer_five - 1) * int(param_list[14][5])) - (2 * int(param_list[14][2])) + int(param_list[14][4]) + int(param_list[14][6])
     
-    decoder_sizes_list = [decoder_convtrans1d_output_size_layer_one, decoder_convtrans1d_output_size_layer_two, decoder_convtrans1d_output_size_layer_three, decoder_convtrans1d_output_size_layer_four, decoder_maxunpool_output_size_layer_five, decoder_convtrans1d_output_size_layer_six]
+    decoder_sizes_list = [decoder_convtrans1d_output_size_layer_one, decoder_convtrans1d_output_size_layer_two, decoder_convtrans1d_output_size_layer_three]
     
     return decoder_sizes_list
     
