@@ -9,6 +9,13 @@
 import torch
 from torch import nn
 
+
+class AutoEncoderDecoder:
+    def __init__(self, parameter_list, encode_sizes, decode_sizes, decode_starter_size):
+        self.encoder = encode_sequence(parameter_list, encode_sizes)
+        self.decoder = decode_sequence(parameter_list, decode_sizes, decode_starter_size)
+
+
 def encode_sequence(parameter_list, encode_sizes):
     """inputs values for encoding layers into torch model
     
@@ -31,7 +38,7 @@ def decode_sequence(parameter_list, decode_sizes, decode_starter_size):
     """
     decoder = nn.Sequential(
         nn.ConvTranspose1d(decode_starter_size, decode_sizes[0], int(parameter_list[9][4]), stride=int(parameter_list[9][5]), padding=int(parameter_list[9][2]), output_padding=int(parameter_list[9][6]), dilation=int(parameter_list[9][3])), 
-        nn.ConvTranspose1d(decode_sizes[0], decode_sizes[1], int(parameter_list[1][4]), stride=int(parameter_list[10][5]), padding=int(parameter_list[10][2]), output_padding=int(parameter_list[10][6]), dilation=int(parameter_list[10][3])), 
+        nn.ConvTranspose1d(decode_sizes[0], decode_sizes[1], int(parameter_list[10][4]), stride=int(parameter_list[10][5]), padding=int(parameter_list[10][2]), output_padding=int(parameter_list[10][6]), dilation=int(parameter_list[10][3])), 
         nn.ConvTranspose1d(decode_sizes[1], decode_sizes[2], int(parameter_list[11][4]), stride=int(parameter_list[11][5]), padding=int(parameter_list[11][2]), output_padding=int(parameter_list[11][6]), dilation=int(parameter_list[11][3])), 
         nn.ConvTranspose1d(decode_sizes[2], decode_sizes[3], int(parameter_list[12][4]), stride=int(parameter_list[12][5]), padding=int(parameter_list[12][2]), output_padding=int(parameter_list[12][6]), dilation=int(parameter_list[12][3])), 
         nn.MaxUnpool1d(int(parameter_list[13][4]), int(parameter_list[13][5]), int(parameter_list[13][2])),
@@ -40,6 +47,14 @@ def decode_sequence(parameter_list, decode_sizes, decode_starter_size):
     
     return decoder
 
+def save_model(parameter_list, encode_sizes, decode_sizes, decode_starter_size):
+    model = AutoEncoderDecoder(parameter_list, encode_sizes, decode_sizes, decode_starter_size).cuda()
+    print "File will be saved in current directory\n"
+    model_file = raw_input("Please enter a file name (without extension) to save the model to: ")
+    model_file = "./" + str(model_file) + ".pth"
+    torch.save(model.state_dict(), model_file)
+    print('saving model to file {}'.format(model_file))
+    
 
 #do something like this
 #torch.save(model.state_dict(), params_file)
