@@ -15,11 +15,11 @@ def encode_sequence(parameter_list, encode_sizes):
     """
     encoder = nn.Sequential(
         nn.Conv1d(int(parameter_list[2][1]), encode_sizes[0], int(parameter_list[2][4]), stride=int(parameter_list[2][5]), padding=int(parameter_list[2][2]), dilation=int(parameter_list[2][3])),
-        nn.MaxPool1d(),
+        nn.MaxPool1d(int(parameter_list[3][4]), int(parameter_list[3][5])),
         nn.Conv1d(encode_sizes[1], encode_sizes[2], int(parameter_list[4][4]), stride=int(parameter_list[4][5]), padding=int(parameter_list[4][2]), dilation=int(parameter_list[4][3])),
-        nn.MaxPool1d(),
+        nn.MaxPool1d(int(parameter_list[5][4]), int(parameter_list[5][5])),
         nn.Conv1d(encode_sizes[3], encode_sizes[4], int(parameter_list[6][4]), stride=int(parameter_list[6][5]), padding=int(parameter_list[6][2]), dilation=int(parameter_list[6][3])),
-        nn.MaxPool1d()
+        nn.MaxPool1d(int(parameter_list[7][4]), int(parameter_list[7][5]))
     )
     
     return encoder
