@@ -60,6 +60,3 @@ def calculate_output_sizes_decoder(param_list, encode_final_layer_size):
     return decoder_sizes_list
     
     
-    
-    
-    
