@@ -18,3 +18,4 @@ if __name__ == "__main__":
 
     save_model(parameter_list, encode_list, decode_list, decode_starter_size)
     
+    plot_model(parameter_list, encode_list, decode_list)

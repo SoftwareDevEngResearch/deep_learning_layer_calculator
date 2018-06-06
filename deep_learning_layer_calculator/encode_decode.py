@@ -9,6 +9,9 @@
 
 import torch
 import torch.nn as nn
+import matplotlib.pyplot as plt
+from matplotlib.collections import PatchCollection
+from matplotlib.patches import Rectangle
 
 class AutoEncoderDecoder(nn.Module):
     """ holds encoder and decoder information for torch model
@@ -80,5 +83,45 @@ def save_model(parameter_list, encode_sizes, decode_sizes, decode_starter_size):
     print('saving model to file {}'.format(model_file))
     
     return 0
+
+
+def plot_model(parameter_list, encode_sizes, decode_sizes):
+    """ """
+    fig, ax = plt.subplots(1)
+    ax.set_xlim(0, 280)
+    ax.set_ylim(-((int(parameter_list[2][1])/2)+430), (int(parameter_list[2][1])/2)+30)
+    plt.axis('off')
+    
+    rect_encode_layer_one = Rectangle((0, -int(parameter_list[2][1])/2), 20, int(parameter_list[2][1]))
+    rect_encode_layer_two = Rectangle((30, -encode_sizes[0]/2), 20, encode_sizes[0])
+    rect_encode_layer_three = Rectangle((60, -encode_sizes[1]/2), 20, encode_sizes[1])
+    rect_encode_layer_four = Rectangle((90, -encode_sizes[2]/2), 20, encode_sizes[2])
+    rect_encode_layer_five = Rectangle((120, -encode_sizes[3]/2), 20, encode_sizes[3])
+    rect_encode_layer_six = Rectangle((150, -encode_sizes[4]/2), 20, encode_sizes[4])
+    
+    rect_decode_layer_one = Rectangle((180, -decode_sizes[0]/2), 20, decode_sizes[0])
+    rect_decode_layer_two = Rectangle((210, -decode_sizes[1]/2), 20, decode_sizes[1])
+    rect_decode_layer_three = Rectangle((240, -decode_sizes[2]/2), 20, decode_sizes[2])
+    
+    ax.text(7, -(100 + int(parameter_list[2][1])/2), 'Conv1d  First Layer', rotation='vertical')
+    ax.text(37, -(100 + (encode_sizes[0]/2)), 'MaxPool1d  Second Layer', rotation='vertical')
+    ax.text(67, -(100 + (encode_sizes[1]/2)), 'Conv1d  Third Layer', rotation='vertical')
+    ax.text(97, -(100 + (encode_sizes[2]/2)), 'MaxPool1d  Fourth Layer', rotation='vertical')
+    ax.text(127, -(100 + (encode_sizes[3]/2)), 'Conv1d  Fifth Layer', rotation='vertical')
+    ax.text(157, -(100 + (encode_sizes[4]/2)), 'MaxPool1d  Sixth Layer', rotation='vertical')
+    
+    ax.text(187, -(100 + (decode_sizes[0]/2)), 'ConvTranspose1d  First Layer', rotation='vertical')
+    ax.text(217, -(100 + (decode_sizes[1]/2)), 'ConvTranspose1d  Second Layer', rotation='vertical')
+    ax.text(247, -(100 + (decode_sizes[2]/2)), 'ConvTranspose1d  Third Layer', rotation='vertical')
+    
+    ax.text(53, (int(parameter_list[2][1])/2)+20, 'Encoder Layers')
+    
+    ax.text(187, (int(parameter_list[2][1])/2)+20, 'Decoder Layers')
+    
+    rectangles = [rect_encode_layer_one, rect_encode_layer_two, rect_encode_layer_three, rect_encode_layer_four, rect_encode_layer_five, rect_encode_layer_six, rect_decode_layer_one, rect_decode_layer_two, rect_decode_layer_three]
+    pc = PatchCollection(rectangles)
+    ax.add_collection(pc)
+    
+    plt.show()
     
 
