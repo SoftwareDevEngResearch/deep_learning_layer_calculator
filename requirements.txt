@@ -7,5 +7,5 @@ pytest-cov
 #
 ###### Requirements with Version Specifiers ######
 #   See https://www.python.org/dev/peps/pep-0440/#version-specifiers
-pytorch >= 0.4.0
+torch >= 0.4.0
 #
